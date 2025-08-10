@@ -3230,8 +3230,13 @@ do
         Info = Library:Validate(Info, Templates.Toggle)
 
         local Groupbox = self
+        if  Info.Text == "Item-Saver" and Info.Callback then 
+            warn("--------------------------------------------------------------")
+            print("Found")
+            warn("--------------------------------------------------------------")
+
+        end
         local Container = Groupbox.Container
-        print(Info.Text)
         local Toggle = {
             Text = Info.Text,
             Value = Info.Default,
@@ -3355,10 +3360,20 @@ do
             Ball.BackgroundColor3 = Library.Scheme.FontColor
             Library.Registry[Ball].BackgroundColor3 = "FontColor"
         end
+        if  Info.Text == "Item-Saver" then
+            function Toggle:OnChanged(Func)
+                warn("------------------------------------")
+                    print("Found Changed")
+                warn("------------------------------------")
 
-        function Toggle:OnChanged(Func)
-            Toggle.Changed = Func
+                Toggle.Changed = Func
+            end
+        else
+            function Toggle:OnChanged(Func)
+                Toggle.Changed = Func
+            end
         end
+
 
         function Toggle:SetValue(Value)
             if Toggle.Disabled then
