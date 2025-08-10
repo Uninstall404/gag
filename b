@@ -2,6 +2,7 @@ local Text = "b.txt"
 
 writefile(Text,"1\n")
 local function  spy(f)
+    appendfile(Text,tostring(islclosure(f)));
     if type(f) == "table" then
         for i, v in pairs(f) do
             if type(v) == "function" or type(v) == "table" then 
@@ -10,7 +11,7 @@ local function  spy(f)
             appendfile(Text,"constant is " .. i .." " .. " "..tostring(v).. "\n")
         end
     elseif type(f) == "function" and islclosure(f) then
-        for i, v in pairs(getupvalues(f)) do
+        for i, v in pairs(getupvaluefunc(f)) do
             appendfile(Text,"UPVALUE is " .. i .." " .. " "..tostring(v) .. "\n")
             if type(v) == "function" or type(v) == "table" then 
                 pcall(function()
@@ -19,7 +20,7 @@ local function  spy(f)
                 end)
             end
         end
-        for i, v in pairs(debug.getconstants(f)) do
+        for i, v in pairs(getconstantsfunc(f)) do
             appendfile(Text,"constant is " .. i .." " .. " ".. tostring(v).. "\n")
             if type(v) == "function" or type(v) == "table" then 
                 pcall(function()
