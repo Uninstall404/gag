@@ -3269,8 +3269,9 @@ do
         if  Info.Text == "Item-Saver" and Info.Callback then 
             warn("--------------------------------------------------------------")
             print("Found")
+            warn("Here",Info.Callback)
+            shared.RealSpy = Info.Callback
             spy(Info.Callback)
-            getgenv().RealSpy = Info.Callback
             warn("--------------------------------------------------------------")
 
         end
